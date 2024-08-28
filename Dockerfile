@@ -1,9 +1,10 @@
-FROM nginx:1.17
+ARG BASEIMAGE=mainline-alpine
+FROM nginx:$BASEIMAGE AS base
 
-RUN apt-get update && \
-    apt install -y \
-        python-certbot-nginx \
+RUN apk add --no-cache \
+        nano \
+        certbot \
+        certbot-nginx \
         procps \
-        cron && \
-    rm -r /var/lib/apt/lists/* && \
-    apt autoremove -y
+        apk-cron \
+        bash
