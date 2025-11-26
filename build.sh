@@ -5,6 +5,8 @@ set -e
 function build() {
     IMAGE=$1
 
+    docker pull nginx:$IMAGE
+
     VERSION=`docker run --rm --entrypoint='' nginx:$IMAGE nginx -v 2>&1 | awk -F / '{print $2}'`
 
     echo "Building $VERSION"
@@ -30,7 +32,6 @@ function build() {
     $CMD
 }
 
-build 1.26-alpine
 build 1.27-alpine
 build 1.28-alpine
 build 1.29-alpine latest
